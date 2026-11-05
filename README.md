@@ -1,10 +1,6 @@
 # ElloColor
 
-[简体中文](#简体中文) · [English](#english)
-
-**[在线体验 · 中文](https://leoushi.github.io/ElloColor/?lang=zh) · [Live demo · English](https://leoushi.github.io/ElloColor/?lang=en)**
-
-## 简体中文
+**[Try ElloColor](https://leoushi.github.io/ElloColor/?lang=en)**
 
 ElloColor 是一个在浏览器里给三维模型喷漆的工具，适合试配色、比较底材和练习分件上色。你可以从示例模型开始，也可以导入自己的白模。
 
@@ -16,7 +12,7 @@ ElloColor 是一个在浏览器里给三维模型喷漆的工具，适合试配�
 
 下载或克隆仓库后，保留完整目录，用支持 WebGL 2 的现代浏览器打开 [`index.html`](index.html)。点左侧资产库入口可选择示例、导入白模或迁移作品。浏览器若限制本地文件的存储，可通过静态服务器打开同一目录。
 
-## English
+---
 
 ElloColor is a browser-based 3D spray painting studio for trying color combinations, comparing surface materials, and painting individual parts. Start with a sample model or import your own unpainted model.
 
