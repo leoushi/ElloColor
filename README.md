@@ -2,6 +2,8 @@
 
 ElloColor 是一个在浏览器里给三维模型喷漆的工具，适合试配色、比较底材和练习分件上色。你可以从示例模型开始，也可以导入自己的白模。
 
+**[在线体验 ElloColor](https://leoushi.github.io/ElloColor/)**
+
 ![ElloColor 三维喷涂工作台](docs/preview.jpg)
 
 - 调节喷幅、流量、透明度和颗粒度，叠加漆层，也可直接上色、撤销和重做。
