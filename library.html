@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0c0d11">
+  <title>ElloColor · 白模资产库</title>
+  <link rel="stylesheet" href="./style.css?v=mecha-workbench-2">
+  <link rel="stylesheet" href="./library.css?v=library-backup-1">
+</head>
+<body class="library-page">
+  <header class="topbar">
+    <div class="identity"><h1><img class="product-logo" src="./assets/ellocolor-logo.svg" alt="ElloColor"></h1><span class="identity-tag">ASSET ARCHIVE</span></div>
+    <div class="header-tools">
+      <div class="languages" aria-label="语言">
+        <button id="lang-zh" type="button" lang="zh-CN" aria-label="中文" aria-pressed="true">中</button>
+        <button id="lang-en" type="button" lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+      <a class="outline header-link" id="back-to-studio" href="./index.html">返回工作台</a>
+    </div>
+  </header>
+  <main class="archive">
+    <header class="archive-head">
+      <div>
+        <p class="archive-kicker">ELLOCOLOR / 01</p>
+        <h2>白模资产库</h2>
+        <p class="archive-description">选择一件白模，打开喷涂台开始上色。</p>
+      </div>
+      <div class="archive-actions">
+        <label class="archive-search"><span>搜索模型</span><input type="search" id="asset-search" autocomplete="off"></label>
+        <button class="primary header-link" id="import-model" type="button">导入白模</button>
+      </div>
+    </header>
+    <div class="archive-toolbar">
+      <span id="asset-count" role="status"></span>
+      <div class="archive-transfer" role="group" aria-label="模型库迁移">
+        <button class="outline" id="export-library" type="button">导出模型库</button>
+        <button class="outline" id="merge-library" type="button">合并导入</button>
+        <input id="library-backup-file" type="file" accept=".ellocolor,application/octet-stream" hidden>
+      </div>
+    </div>
+    <p id="library-transfer-status" role="status" hidden></p>
+    <div id="asset-grid" class="asset-grid"></div>
+    <p id="asset-empty" hidden>没有符合条件的模型。</p>
+  </main>
+  <footer class="bottom-bar archive-footer">
+    <div><a href="./THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">模型来源与许可</a></div>
+  </footer>
+  <dialog id="import-dialog" aria-labelledby="import-title">
+    <header><h2 id="import-title">导入白模</h2></header>
+    <dl>
+      <dt>格式</dt><dd>GLB、FBX 或 STL，单文件不超过 24 MB。</dd>
+      <dt>材质</dt><dd>白色或浅灰色的静态不透明模型。请移除贴图、顶点色、动画和蒙皮。</dd>
+      <dt>网格</dt><dd>最多 24 个网格、合计 12 万三角面。单网格最多 6 万个三角面、6 万个顶点。</dd>
+      <dt>分件喷涂</dt><dd>需要分件喷涂时，请保留独立网格。单个 STL 视为一个零件。Blender 文件请先导出为 GLB。</dd>
+    </dl>
+    <input id="import-file" type="file" accept=".glb,.fbx,.stl" hidden>
+    <p id="import-status" role="status" hidden></p>
+    <form method="dialog"><button class="outline" value="cancel">取消</button><button class="primary" id="pick-import-file" type="button">选择模型文件</button></form>
+  </dialog>
+  <script src="./web/library.js?v=library-backup-1"></script>
+</body>
+</html>

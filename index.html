@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0c10">
+  <meta name="description" content="ElloColor 三维喷涂工作台。选择模型、底材与颜料，为真实三维表面逐层上色。">
+  <title>ElloColor · 三维喷涂工作台</title>
+  <link rel="stylesheet" href="./style.css?v=orbit-dial-1">
+</head>
+<body data-intro="loading">
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 9 8-4.5M12 12 4 7.5m8 4.5v9"/></symbol>
+    <symbol id="i-spray" viewBox="0 0 24 24"><path d="m10 14 8-8 3 3-8 8-3-3Zm-1 1-3 3m10-8 3 3M3 20h.01m2-7h.01m6 6h.01"/></symbol>
+    <symbol id="i-explode" viewBox="0 0 24 24"><path d="m12 9 3 3-3 3-3-3 3-3Zm-7-4 3 3m8 8 3 3M5 9V5h4m6 14h4v-4m0-10-3 3m-8 8-3 3m0-4v4h4m6-14h4v4"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12c4.8-7.5 15.2-7.5 20 0-4.8 7.5-15.2 7.5-20 0Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-solo" viewBox="0 0 24 24"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4M9 9h6v6H9z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.34-5.66L4 8.68M4 4.48v4.2h4.2"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="m8 5-5 5 5 5m-5-5h11a5 5 0 0 1 0 10h-3"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m16 5 5 5-5 5m5-5H10a5 5 0 0 0 0 10h3"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 10h4l5-4v12l-5-4H4v-4Zm12-1a4 4 0 0 1 0 6m2-8a7 7 0 0 1 0 10"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 10h4l5-4v12l-5-4H4v-4Zm12 0 5 5m0-5-5 5"/></symbol>
+    <symbol id="i-square" viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 9h6v6H9z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M6 5h12v14H6zM10 9l-3 3 3 3m-3-3h8"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M6 5h12v14H6zM14 9l3 3-3 3m3-3H9"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 12h6m-6 3h6"/></symbol>
+    <symbol id="i-top" viewBox="0 0 24 24"><path d="M5 5h14v14H5zM9 12l3-3 3 3m-3-3v7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M5 14v5h14v-5"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2m0-14-2 2M7 17l-2 2"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.4 9a2.6 2.6 0 1 1 4.1 2.1c-1 .65-1.5 1.15-1.5 2.4m0 3h.01"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 7h16v13H4zM3 4h18v3H3zM9 11h6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+    <symbol id="i-quality" viewBox="0 0 24 24"><path d="M4 17h16M6 14V9m4 5V6m4 8V9m4 5V6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 6 6 6-6 6"/></symbol>
+    <g id="i-pen" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 24 19 17 39 17 53 10 65 10 70 3 103 3 108 10 121 12 137 18 175 19 183 23 183 28 175 33 135 33 121 38 53 37 39 30 19 30Z" fill="#111923" fill-opacity=".92" stroke="#070a0d" stroke-width="4"/>
+      <path d="M0 24 19 17 39 17 53 10 65 10 70 3 103 3 108 10 121 12 137 18 175 19 183 23 183 28 175 33 135 33 121 38 53 37 39 30 19 30Z" fill="none" stroke="#e0ebf4" stroke-width="1.6"/>
+      <path d="M20 17v13m9-13v13m10-13v13M54 10v27m68-24v24M65 10h43M76 3v7m10-7v7m10-7v7m42 14h33m-30 5h27" fill="none" stroke="#8c9fb1"/>
+      <path d="M63 17h34l12 6-8 7H63Z" fill="currentColor" fill-opacity=".38" stroke="#d5e0e8"/>
+      <path d="M68 23h29" stroke="currentColor" stroke-width="2"/>
+      <circle cx="0" cy="24" r="2.25" fill="currentColor" stroke="#eaf2f6" stroke-width="1.2"/>
+    </g>
+  </svg>
+  <div id="intro" class="intro" role="status">
+    <div class="intro-center">
+      <img class="intro-logo" src="./assets/ellocolor-logo.svg" alt="ElloColor">
+      <div id="intro-progress" class="intro-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="4" aria-label="加载进度"><i></i></div>
+      <span id="intro-status">正在准备三维工作台</span>
+      <button id="intro-retry" class="outline" type="button" hidden>重新加载</button>
+      <noscript>请启用 JavaScript 后重新打开 ElloColor。</noscript>
+    </div>
+  </div>
+  <header id="editor-top" class="topbar">
+    <div class="identity">
+      <h1><img class="product-logo" src="./assets/ellocolor-logo.svg" alt="ElloColor"></h1>
+      <button id="guide" class="outline guide-button" type="button" aria-label="操作指南" title="操作指南"><svg><use href="#i-help"/></svg></button>
+      <span class="identity-tag">SPRAY LAB</span>
+    </div>
+    <div class="header-tools">
+      <button id="lang-toggle" type="button" class="outline icon-button" aria-label="English" title="English"><svg><use href="#i-globe"/></svg></button>
+      <button id="mute" type="button" class="outline sound-button" aria-pressed="false" title="静音"><svg><use href="#i-sound"/></svg><span class="sr-only">静音</span></button>
+      <button id="quality" class="outline icon-button" type="button" aria-pressed="false" aria-label="标准画质" title="标准画质"><svg><use href="#i-quality"/></svg></button>
+      <button id="appreciate" class="primary" type="button">欣赏涂色 <svg><use href="#i-chevron"/></svg></button>
+      <button type="button" class="fold-control fold-top" data-fold="top" aria-controls="editor-top" aria-expanded="true" aria-label="收起顶部"><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+    </div>
+  </header>
+
+  <main id="workbench" aria-label="喷涂工作台">
+    <canvas id="stage" aria-label="三维模型喷涂画布" tabindex="0"></canvas>
+    <div id="reticle" class="reticle" aria-hidden="true" hidden><i></i></div>
+    <svg id="pen" class="pen" aria-hidden="true" viewBox="0 0 184 48" hidden><use href="#i-pen"/></svg>
+    <div id="ink-drop" class="ink-drop" aria-hidden="true" hidden></div>
+
+    <aside id="editor-models" class="model-panel panel" aria-label="模型和零件">
+      <div class="library-heading">
+        <h2>模型库</h2>
+        <a class="outline header-link icon-button" id="library-link" href="./library.html" target="_blank" rel="noopener" aria-label="资产库" title="资产库"><svg class="icon"><use href="#i-library"/></svg></a>
+        <button type="button" class="fold-control fold-left" data-fold="left" aria-controls="editor-models" aria-expanded="true" aria-label="收起模型栏"><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      </div>
+      <nav id="model-library" class="model-library" aria-label="模型列表"></nav>
+      <div class="tree-heading">
+        <span>零件树</span><span id="model-count">12</span>
+        <button type="button" id="explode" class="outline explode icon-button" aria-pressed="false" aria-label="爆炸视图" title="爆炸视图"><svg><use href="#i-explode"/></svg></button>
+      </div>
+      <nav id="parts" aria-label="零件树"></nav>
+    </aside>
+
+    <aside id="editor-inspector" class="right-rail" aria-label="零件状态和视角">
+      <section class="surface-panel panel">
+        <div class="panel-overline"><span>表面状态</span><span id="part-index">P–02</span></div>
+        <button type="button" class="fold-control fold-right" data-fold="right" aria-controls="editor-inspector" aria-expanded="true" aria-label="收起状态栏"><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <h2 id="part-name">—</h2>
+        <div class="coat-heading"><div class="coat-label"><span>本轮覆盖</span><output id="fill-threshold-value" for="fill-threshold">补色 35%</output></div><strong id="coverage">0.0<sub>%</sub></strong></div>
+        <div class="coat-progress">
+          <div class="meter" id="coat-meter" role="progressbar" aria-label="当前零件的本轮覆盖率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+          <b aria-hidden="true"></b>
+          <input id="fill-threshold" type="range" min="1" max="100" value="35" aria-label="自动补色阈值" title="拖动调整补色阈值">
+        </div>
+        <div class="coat-caption"><span id="part-material">哑光白模</span><span id="coat-state">待喷涂</span></div>
+        <div class="part-actions">
+          <button type="button" id="visibility" class="outline" aria-pressed="false" aria-label="隐藏" title="隐藏或显示当前零件"><svg><use href="#i-eye"/></svg><span class="sr-only">隐藏</span></button>
+          <button type="button" id="solo" class="outline" aria-pressed="false" aria-label="独显" title="单独显示当前零件"><svg><use href="#i-solo"/></svg></button>
+        </div>
+      </section>
+
+      <section class="views panel" aria-label="快捷视角">
+        <div class="view-heading"><span>观察视角</span><span id="view-label">斜视</span></div>
+        <div class="view-grid">
+          <button type="button" data-view="front" aria-pressed="false" aria-label="正面" title="正面"><svg><use href="#i-square"/></svg></button>
+          <button type="button" data-view="left" aria-pressed="false" aria-label="左侧" title="左侧"><svg><use href="#i-left"/></svg></button>
+          <button type="button" data-view="right" aria-pressed="false" aria-label="右侧" title="右侧"><svg><use href="#i-right"/></svg></button>
+          <button type="button" data-view="back" aria-pressed="false" aria-label="背面" title="背面"><svg><use href="#i-back"/></svg></button>
+          <button type="button" data-view="top" aria-pressed="false" aria-label="俯视" title="俯视"><svg><use href="#i-top"/></svg></button>
+          <button type="button" data-view="hero" aria-pressed="true" aria-label="斜视" title="恢复斜视、缩放和高度"><svg><use href="#i-cube"/></svg></button>
+        </div>
+        <label class="zoom-control">
+          <span>缩放</span><input id="view-zoom" type="range" min="48" max="450" value="100" aria-label="观察缩放">
+          <output id="view-zoom-value" for="view-zoom">100%</output>
+        </label>
+        <label class="zoom-control">
+          <span>上下</span><input id="view-pan" type="range" min="-100" max="100" value="0" aria-label="上下视角">
+          <output id="view-pan-value" for="view-pan">0%</output>
+        </label>
+        <div class="orbit-footer">
+          <div id="orbit-dial" class="orbit-dial" role="group" aria-label="旋转操纵器" aria-describedby="orbit-hint">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="orbit-ring" cx="50" cy="50" r="46"/>
+              <line class="orbit-x" x1="50" y1="50"/><line class="orbit-x" x1="50" y1="50"/>
+              <line class="orbit-y" x1="50" y1="50"/><line class="orbit-y" x1="50" y1="50"/>
+              <line class="orbit-z" x1="50" y1="50"/><line class="orbit-z" x1="50" y1="50"/>
+              <circle class="orbit-origin" cx="50" cy="50" r="2"/>
+            </svg>
+            <button type="button" class="orbit-axis orbit-x" data-orbit-view="right" aria-label="右视图" title="右视图"><span aria-hidden="true">X</span></button>
+            <button type="button" class="orbit-axis orbit-x orbit-negative" data-orbit-view="left" aria-label="左视图" title="左视图"><span aria-hidden="true"></span></button>
+            <button type="button" class="orbit-axis orbit-y" data-orbit-view="back" aria-label="后视图" title="后视图"><span aria-hidden="true">Y</span></button>
+            <button type="button" class="orbit-axis orbit-y orbit-negative" data-orbit-view="front" aria-label="前视图" title="前视图"><span aria-hidden="true"></span></button>
+            <button type="button" class="orbit-axis orbit-z" data-orbit-view="top" aria-label="俯视图" title="俯视图"><span aria-hidden="true">Z</span></button>
+            <button type="button" class="orbit-axis orbit-z orbit-negative" data-orbit-view="bottom" aria-label="仰视图" title="仰视图"><span aria-hidden="true"></span></button>
+          </div>
+          <span id="orbit-hint" class="sr-only">拖动或按方向键旋转，点击轴端切换视角。</span>
+        </div>
+      </section>
+    </aside>
+    <div id="loading" class="loading" role="status"><i></i><span>正在准备三维工作台</span></div>
+    <div id="gallery-controls" hidden>
+      <button id="gallery-exit" class="outline gallery-exit" type="button"><svg><use href="#i-close"/></svg>返回喷涂</button>
+      <div class="gallery-bar">
+        <nav id="gallery-scenes" aria-label="观赏场景"></nav>
+        <div class="gallery-light" role="group" aria-label="光影环境">
+          <button type="button" data-gallery-light="-1" aria-label="上一种天气"><svg><use href="#i-chevron"/></svg></button>
+          <output id="gallery-light" aria-live="polite">室内棚灯</output>
+          <button type="button" data-gallery-light="1" aria-label="下一种天气"><svg><use href="#i-chevron"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="editor-deck" class="deck" aria-label="喷涂工具操作带">
+    <div class="stage-status" aria-live="polite">
+      <i></i><span id="tool-status">喷涂模式</span><span class="status-divider"></span><span id="hit-status">点按或按住拖动</span>
+    </div>
+    <section class="deck-group pigment-group" aria-labelledby="palette-title">
+      <div class="deck-heading"><h2 id="palette-title">颜料 <small>PALETTE</small></h2><button id="palette-mode" type="button" class="outline" aria-pressed="false">自由调色</button></div>
+      <div class="swatches" id="palette"></div>
+      <div id="custom-palette" class="custom-palette" hidden>
+        <input id="custom-color" type="color" aria-label="选取颜色">
+        <label class="range-control"><span>色相 <output id="hue-value"></output></span><input id="hue" type="range" min="0" max="359" aria-label="色相"></label>
+        <label class="range-control"><span>饱和 <output id="saturation-value"></output></span><input id="saturation" type="range" min="0" max="100" aria-label="饱和"></label>
+        <label class="range-control"><span>明度 <output id="lightness-value"></output></span><input id="lightness" type="range" min="0" max="100" aria-label="明度"></label>
+        <label class="custom-hex"><span>HEX</span><input id="custom-hex" type="text" autocomplete="off" spellcheck="false" maxlength="7" aria-label="十六进制色值"></label>
+      </div>
+      <div class="deck-foot"><span id="ink-name">金辉</span><strong id="ink-hex">#EBA449</strong></div>
+    </section>
+    <section class="deck-group material-group" aria-labelledby="material-title">
+      <div class="deck-heading"><h2 id="material-title">底材与光影</h2><button id="scope" class="scope" type="button" aria-pressed="true"><i></i><span>全模型</span></button></div>
+      <div class="deck-cycle" role="group" aria-label="底材">
+        <button type="button" data-cycle="surface" data-direction="-1" aria-label="上一种底材"><svg><use href="#i-chevron"/></svg></button>
+        <button id="surface-picker" class="surface-picker-toggle" type="button" aria-expanded="false" aria-controls="surface-panel" aria-label="打开底材库" aria-describedby="materials" title="打开底材库">
+          <span id="material-chip" aria-hidden="true"></span><span id="materials" aria-live="polite">哑光白模</span>
+        </button>
+        <button type="button" data-cycle="surface" data-direction="1" aria-label="下一种底材"><svg><use href="#i-chevron"/></svg></button>
+      </div>
+      <section id="surface-panel" class="material-library-panel" aria-labelledby="surface-title" hidden>
+        <header class="surface-panel-heading">
+          <h3 id="surface-title">底材库</h3>
+          <span id="surface-scope">全模型</span>
+          <button id="surface-close" class="outline" type="button" aria-label="关闭"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <div id="surface-options" class="surface-options"></div>
+      </section>
+      <div class="deck-cycle" role="group" aria-label="光影环境">
+        <button type="button" data-cycle="light" data-direction="-1" aria-label="上一种天气"><svg><use href="#i-chevron"/></svg></button>
+        <button type="button" id="light-position" class="light-picker-toggle" aria-expanded="false" aria-controls="light-panel" aria-label="移动主光" title="移动主光">
+          <svg class="icon"><use href="#i-light"/></svg><span id="lighting" aria-live="polite">室内棚灯</span>
+        </button>
+        <button type="button" data-cycle="light" data-direction="1" aria-label="下一种天气"><svg><use href="#i-chevron"/></svg></button>
+      </div>
+      <div id="light-panel" class="light-panel" role="region" aria-label="主光位置" hidden>
+        <div class="light-panel-heading"><strong>主光位置</strong><button id="light-reset" class="outline" type="button" aria-label="恢复预设光源位置" title="恢复预设光源位置"><svg><use href="#i-reset"/></svg></button></div>
+        <div id="light-pad" class="light-pad" tabindex="0" aria-label="调整主光方向和高度" aria-describedby="light-pad-hint">
+          <svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="67"/><circle cx="80" cy="80" r="46"/><circle cx="80" cy="80" r="23"/><path d="M80 13v134M13 80h134"/></svg>
+          <svg class="light-pad-center" aria-hidden="true"><use href="#i-cube"/></svg><i></i>
+        </div>
+        <div class="light-panel-foot"><span id="light-pad-hint">越靠中心，光源越高</span><output id="light-elevation">0°</output></div>
+      </div>
+    </section>
+    <section class="deck-group tool-group" aria-labelledby="tool-title">
+      <div class="deck-heading">
+        <div class="paint-heading">
+          <h2 id="tool-title">喷涂控制</h2>
+          <button id="paint-scope" class="outline paint-scope" type="button" title="切换上色范围" aria-pressed="true"><i class="toggle" aria-hidden="true"></i><span>全模型</span></button>
+        </div>
+        <div class="history-buttons" role="group" aria-label="喷涂历史">
+          <button id="undo" type="button" class="outline icon-button" aria-label="撤销" title="撤销" disabled><svg><use href="#i-undo"/></svg></button>
+          <button id="redo" type="button" class="outline icon-button" aria-label="重做" title="重做" disabled><svg><use href="#i-redo"/></svg></button>
+          <button type="button" class="fold-control fold-deck" data-fold="deck" aria-controls="editor-deck" aria-expanded="true" aria-label="收起底部"><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        </div>
+      </div>
+      <div class="tool-fields">
+        <label class="range-control"><span>喷幅 <output id="brush-value">44 px</output></span><input id="brush" type="range" min="12" max="144" value="44" aria-label="喷幅"></label>
+        <label class="range-control"><span>流量 <output id="flow-value">55%</output></span><input id="flow" type="range" min="5" max="200" value="55" aria-label="流量"></label>
+        <label class="range-control"><span>透明度 <output id="transparency-value">0%</output></span><input id="transparency" type="range" min="0" max="100" value="0" aria-label="透明度" title="0% 为不透明，100% 为完全透明"></label>
+        <label class="range-control"><span>连贯度 <output id="continuity-value">80%</output></span><input id="continuity" type="range" min="0" max="100" value="80" aria-label="连贯度"></label>
+        <label class="range-control grain-control"><span>颗粒度 <output id="grain-value">细 · 25</output></span><input id="grain" type="range" min="0" max="100" value="25" aria-label="颗粒度" title="向左颗粒更细密，向右颗粒更粗"></label>
+      </div>
+      <div class="tool-actions">
+        <div class="mode-buttons" aria-label="工具">
+          <button type="button" data-tool="spray" aria-pressed="true"><svg><use href="#i-spray"/></svg>喷涂</button>
+          <button type="button" data-tool="solid" aria-pressed="false"><svg><use href="#i-cube"/></svg>直接上色</button>
+        </div>
+        <button id="auto" type="button" class="outline auto" aria-pressed="false"><i class="toggle"></i>自动补色</button>
+        <button id="reset" type="button" class="outline reset icon-button" aria-label="重置" title="重置"><svg><use href="#i-reset"/></svg></button>
+      </div>
+    </section>
+  </section>
+  <div id="fold-dock">
+    <button type="button" class="fold-control fold-top" data-fold="top" aria-controls="editor-top" aria-expanded="false" aria-label="展开顶部" hidden><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+    <button type="button" class="fold-control fold-left" data-fold="left" aria-controls="editor-models" aria-expanded="false" aria-label="展开模型栏" hidden><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+    <button type="button" class="fold-control fold-right" data-fold="right" aria-controls="editor-inspector" aria-expanded="false" aria-label="展开状态栏" hidden><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+    <button type="button" class="fold-control fold-deck" data-fold="deck" aria-controls="editor-deck" aria-expanded="false" aria-label="展开底部" hidden><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+  </div>
+  <dialog id="help" aria-labelledby="help-title">
+    <header><div><small>OPERATOR GUIDE</small><h2 id="help-title">操作指南</h2></div><button data-close type="button" class="outline" aria-label="关闭"><svg><use href="#i-close"/></svg></button></header>
+    <dl>
+      <dt>喷涂</dt><dd>按住拖动持续喷涂。「当前零件」锁定首次命中的零件，「全模型」可连续喷过多个零件。</dd>
+      <dt>撤销</dt><dd>按下到松开算一笔。用撤销或重做逐笔调整，也可用 ⌘／Ctrl + Z 和 ⌘／Ctrl + Shift + Z。</dd>
+      <dt>透明度</dt><dd>提高透明度可以保留底色。调整只影响接下来喷涂或上色的漆层。</dd>
+      <dt>连贯度</dt><dd>提高连贯度，快速拖动时的喷点会更密。调低可保留较分散的喷点。</dd>
+      <dt>颗粒度</dt><dd>向左喷雾更细密，落在模型上的漆点更均匀。向右可保留较明显的颗粒。</dd>
+      <dt>直接上色</dt><dd>点按模型，按上色范围填充当前零件或全模型。</dd>
+      <dt>观察</dt><dd>右键或双指拖动旋转。滚轮和缩放滑杆控制距离。按住鼠标中键上下拖动，或用「上下」滑杆平移视角。</dd>
+      <dt>叠色</dt><dd>关闭自动补色，降低流量，再把黄色薄喷到青色上。重叠区会呈现绿色。</dd>
+      <dt>补色</dt><dd>开启后，当前颜色达到阈值便会填满零件。拖动覆盖条上的标记可调整阈值。</dd>
+      <dt>底材</dt><dd>点击材质球打开底材库。材质可应用到当前零件或全模型。</dd>
+    </dl>
+    <form method="dialog"><button class="primary" value="close">开始喷涂</button></form>
+  </dialog>
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <header><h2 id="reset-title">重置当前模型</h2><button data-close type="button" class="outline" aria-label="关闭"><svg><use href="#i-close"/></svg></button></header>
+    <p>清除当前模型已保存的漆层，并恢复底材、零件状态和视角。</p>
+    <form method="dialog"><button value="cancel" class="outline">取消</button><button value="reset" class="primary">确认重置</button></form>
+  </dialog>
+  <div id="notice" class="notice" role="status" hidden></div>
+  <script src="./web/resources.js?v=mecha-workbench-2"></script>
+  <script>
+    (() => {
+      const english = /(?:^|[?&])lang=en(?:&|$)/.test(location.search);
+      const message = document.getElementById('intro-status');
+      const retry = document.getElementById('intro-retry');
+      let timeout;
+      const fail = (text, canRetry = true) => {
+        if (['ready', 'done'].includes(document.body.dataset.intro)) return;
+        clearTimeout(timeout);
+        document.body.dataset.intro = 'error';
+        document.getElementById('intro-progress').hidden = true;
+        message.textContent = text;
+        retry.hidden = !canRetry;
+      };
+      retry.textContent = english ? 'Reload' : '重新加载';
+      retry.addEventListener('click', () => location.reload());
+      if (!window.DecompressionStream) {
+        fail(english ? 'Open ElloColor in an up-to-date browser with WebGL 2.'
+          : '请使用支持 WebGL 2 的新版浏览器打开 ElloColor。', false);
+        return;
+      }
+      const missingFiles = english
+        ? 'Unable to load the app. Keep the entire ElloColor folder together and reopen index.html.'
+        : '无法加载程序。请保留完整的 ElloColor 文件夹，再打开 index.html。';
+      window.addEventListener('ellocolor-start-error', event => fail(event.detail));
+      window.addEventListener('error', () => {
+        if (document.body.dataset.intro === 'loading') fail(missingFiles);
+      });
+      const entry = document.createElement('script');
+      entry.src = './web/studio.js?v=library-backup-1';
+      entry.onerror = () => fail(missingFiles);
+      timeout = setTimeout(() => fail(english
+        ? 'Startup is taking longer than expected. Check the folder and try reloading.'
+        : '加载时间较长。请检查文件夹是否完整，或重新加载。'), new URLSearchParams(location.search).has('import') ? 60000 : 25000);
+      document.body.appendChild(entry);
+    })();
+  </script>
+</body>
+</html>
