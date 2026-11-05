@@ -43,7 +43,9 @@ The project code and original sample assets are available under the [MIT License
 ## 作者 / Author
 
 **Leou Shi**  
-ElloWorld Digital  (Fonder)
+ElloWorld Digital  (Founder)
+
+Digital / Art / AIGC / Game / VisionPro / XR
 
 **ElloMeta XR Studio**  
 [www.ellometa.com](http://www.ellometa.com)
